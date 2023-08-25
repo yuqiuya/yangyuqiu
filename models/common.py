@@ -881,3 +881,37 @@ class Classify(nn.Module):
         if isinstance(x, list):
             x = torch.cat(x, 1)
         return self.linear(self.drop(self.pool(self.conv(x)).flatten(1)))
+from torchvision import models
+'''
+模型：resnet50
+'''
+class resnet501(nn.Module):
+    def __init__(self, ignore) -> None:
+        super().__init__()
+        model = models.resnet50(pretrained=True)
+        modules = list(model.children())
+        modules = modules[:6]
+        self.model = nn.Sequential(*modules)
+    def forward(self, x):
+        return self.model(x)
+    
+class resnet502(nn.Module):
+    def __init__(self, ignore) -> None:
+        super().__init__()
+        model = models.resnet50(pretrained=True)
+        modules = list(model.children())
+        modules = modules[6]
+        self.model = nn.Sequential(*modules)
+    def forward(self, x):
+        return self.model(x)
+    
+class resnet503(nn.Module):
+    def __init__(self, ignore) -> None:
+        super().__init__()
+        model = models.resnet50(pretrained=True)
+        modules = list(model.children())
+        modules = modules[7]
+        self.model = nn.Sequential(*modules)
+    def forward(self, x):
+        return self.model(x)
+
